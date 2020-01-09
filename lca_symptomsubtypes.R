@@ -47,10 +47,10 @@ dev.off()
 LCA_membership_df <- as.data.frame(sapply(LCAresults, "[[", "predclass"))
 
 # Add nsrrid column
-LCA_membership_df <- data.frame(nsrrid=symptoms_clean$nsrrid, LCA_membership_df, stringsAsFactors = F)
+LCA_membership_df <- data.frame(id=data$id, LCA_membership_df, stringsAsFactors = F)
 
-# Merge symptoms_clean with LCA_membership_df by nsrrid:
-symptoms_with_LCAresults_df <- merge(symptoms_clean, LCA_membership_df, by = "nsrrid")
+# Merge symptoms_clean with LCA_membership_df by id:
+symptoms_with_LCAresults_df <- merge(data, LCA_membership_df, by = "id")
 
 # Save
 write.csv(symptoms_with_LCAresults_df, "symptoms_with_LCAresults_df_HypnoLaus.csv", row.names = F)
@@ -61,7 +61,7 @@ write.csv(symptoms_with_LCAresults_df, "symptoms_with_LCAresults_df_HypnoLaus.cs
 LC_names <- names(LCAresults)[-1] # not meaningful for 1 cluster
 
 # Set names of symptoms
-symps <- names(symptoms_clean)[2:16]
+symps <- names(data)[2:16]
 
 # Create heatmaps
 i=1
